@@ -1,0 +1,442 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Release Page</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            /* Classic XP Teal/Luna background */
+            background: linear-gradient(180deg, #3A6EA5 0%, #2C5A8A 50%, #1E4A7A 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Tahoma, "Segoe UI", sans-serif;
+            overflow: hidden;
+        }
+
+        /* XP Window Container */
+        .xp-window {
+            width: 480px;
+            max-width: 95%;
+            background: #ECE9D8; /* Classic XP beige background */
+            border-radius: 8px 8px 6px 6px;
+            border: 1px solid #003C74;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.5) inset,
+                0 2px 15px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        /* XP Title Bar */
+        .xp-titlebar {
+            height: 30px;
+            background: linear-gradient(180deg, #1A91FA 0%, #0970D6 10%, #0054E3 90%, #003C9D 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6px 0 8px;
+            border-radius: 6px 6px 0 0;
+            position: relative;
+        }
+
+        .xp-titlebar::before {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            right: 1px;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 100%);
+            border-radius: 5px 5px 0 0;
+            pointer-events: none;
+        }
+
+        .xp-titlebar-text {
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .xp-icon {
+            width: 16px;
+            height: 16px;
+            background: #FFE;
+            border: 1px solid #666;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        /* XP Window Buttons */
+        .xp-buttons {
+            display: flex;
+            gap: 2px;
+        }
+
+        .xp-btn {
+            width: 21px;
+            height: 21px;
+            border: 1px solid #003C74;
+            background: linear-gradient(180deg, #F8F8F8 0%, #E8E8E8 5%, #D8E4F8 45%, #B8C8E8 50%, #90B0E8 95%, #70A0E0 100%);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 11px;
+            color: white;
+            text-shadow: 0 0 1px #003C74, 0 0 1px #003C74, 0 0 1px #003C74;
+            position: relative;
+        }
+
+        .xp-btn:hover {
+            background: linear-gradient(180deg, #FAFAFA 0%, #E8E8E8 5%, #E8F0FF 45%, #C8D8F8 50%, #A8C8F8 95%, #88B8F0 100%);
+        }
+
+        .xp-btn:active {
+            background: linear-gradient(180deg, #90B0E8 0%, #B8C8E8 5%, #D8E4F8 50%, #E8E8E8 95%, #F0F0F0 100%);
+        }
+
+        .xp-btn-close {
+            background: linear-gradient(180deg, #FFB060 0%, #FF9040 5%, #E06040 45%, #D04030 50%, #C03020 95%, #B02010 100%);
+            border-color: #802010;
+        }
+
+        .xp-btn-close:hover {
+            background: linear-gradient(180deg, #FFC080 0%, #FFA050 5%, #F07050 45%, #E05040 50%, #D04030 95%, #C03020 100%);
+        }
+
+        .xp-btn-close:active {
+            background: linear-gradient(180deg, #C03020 0%, #D04030 5%, #E06040 50%, #FF9040 95%, #FFB060 100%);
+        }
+
+        /* XP Menu Bar */
+        .xp-menubar {
+            background: #ECE9D8;
+            border-bottom: 1px solid #ACA899;
+            padding: 2px 8px;
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: #000;
+        }
+
+        .xp-menu-item {
+            cursor: pointer;
+            padding: 2px 4px;
+        }
+
+        .xp-menu-item:hover {
+            background: #316AC5;
+            color: white;
+        }
+
+        /* XP Content Area */
+        .xp-content {
+            padding: 20px;
+            background: #ECE9D8;
+        }
+
+        /* Classic XP Group Box */
+        .xp-groupbox {
+            border: 2px groove #ECE9D8;
+            padding: 16px 20px 20px;
+            background: #ECE9D8;
+            position: relative;
+        }
+
+        .xp-groupbox-title {
+            position: absolute;
+            top: -8px;
+            left: 12px;
+            background: #ECE9D8;
+            padding: 0 6px;
+            font-size: 12px;
+            color: #003C74;
+            font-weight: bold;
+        }
+
+        /* App Info */
+        .app-info {
+            text-align: center;
+            padding: 10px 0 20px;
+        }
+
+        .app-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, #F0F0F0 0%, #D8D8D8 100%);
+            border: 2px solid #808080;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            object-fit: contain;
+            box-shadow:
+                inset 1px 1px 2px rgba(255,255,255,0.8),
+                inset -1px -1px 2px rgba(0,0,0,0.2),
+                2px 2px 5px rgba(0,0,0,0.2);
+        }
+
+        img.app-icon {
+            padding: 4px;
+            background: #FFF;
+        }
+
+        .app-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #003399;
+            margin-bottom: 6px;
+        }
+
+        .app-version {
+            font-size: 11px;
+            color: #666;
+        }
+
+        /* XP Blinking Cursor */
+        .xp-prompt {
+            font-family: 'Courier New', 'Lucida Console', monospace;
+            font-size: 13px;
+            color: #000;
+            background: #F5F5F0;
+            border: 1px solid #D4D0C8;
+            padding: 6px 10px;
+            border-radius: 2px;
+            text-align: left;
+            margin: 15px 0;
+        }
+
+        .xp-prompt-text {
+            color: #003399;
+            font-weight: bold;
+        }
+
+        .xp-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 14px;
+            background: #000;
+            margin-left: 2px;
+            vertical-align: middle;
+            animation: xp-blink 1s step-end infinite;
+        }
+
+        @keyframes xp-blink {
+            50% { opacity: 0; }
+        }
+
+        /* XP Progress Bar - REMOVED */
+
+        /* XP Divider */
+        .xp-divider {
+            height: 2px;
+            background: linear-gradient(180deg, #ACA899 0%, #ECE9D8 100%);
+            margin: 15px 0;
+            border: none;
+        }
+
+        /* XP Buttons */
+        .xp-action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .xp-action-btn {
+            min-width: 100px;
+            padding: 5px 15px;
+            font-family: Tahoma, sans-serif;
+            font-size: 12px;
+            border: 1px solid #003C74;
+            border-radius: 3px;
+            background: linear-gradient(180deg, #FFFFFF 0%, #E8E8E8 5%, #D8D8D8 50%, #C8C8C8 95%, #B8B8B8 100%);
+            cursor: pointer;
+            position: relative;
+            box-shadow:
+                inset 1px 1px 0 rgba(255,255,255,0.9),
+                inset -1px -1px 0 rgba(0,0,0,0.05);
+        }
+
+        .xp-action-btn:hover {
+            background: linear-gradient(180deg, #F0F8FF 0%, #E0F0FF 5%, #D0E8FF 50%, #C0E0FF 95%, #B0D8FF 100%);
+        }
+
+        .xp-action-btn:active {
+            background: linear-gradient(180deg, #C0C0C0 0%, #D0D0D0 5%, #E0E0E0 50%, #F0F0F0 95%, #FFFFFF 100%);
+            box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
+            padding-top: 6px;
+            padding-bottom: 4px;
+        }
+
+        .xp-action-btn-primary {
+            min-width: 120px;
+            border: 1px solid #003C74;
+            background: linear-gradient(180deg, #F0F8FF 0%, #D8E8FF 5%, #B8D8FF 50%, #98C8FF 95%, #78B8FF 100%);
+        }
+
+        .xp-action-btn-primary:hover {
+            background: linear-gradient(180deg, #F8FBFF 0%, #E8F4FF 5%, #C8E8FF 50%, #A8D8FF 95%, #88C8FF 100%);
+        }
+
+        .xp-action-btn-primary:active {
+            background: linear-gradient(180deg, #78B8FF 0%, #98C8FF 5%, #B8D8FF 50%, #D8E8FF 95%, #F0F8FF 100%);
+        }
+
+        /* File Details */
+        .file-details {
+            font-size: 11px;
+            color: #666;
+            text-align: center;
+            margin-top: 15px;
+            padding: 8px;
+            background: #F5F5F0;
+            border: 1px solid #D4D0C8;
+            border-radius: 2px;
+        }
+
+        .file-details-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 2px 0;
+        }
+
+        .file-details-row .label {
+            color: #333;
+        }
+
+        .file-details-row .value {
+            color: #000;
+        }
+
+        /* Status Bar */
+        .xp-statusbar {
+            background: linear-gradient(180deg, #F0F0E8 0%, #E0E0D8 100%);
+            border-top: 1px solid #ACA899;
+            padding: 4px 8px;
+            font-size: 11px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .xp-status-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .xp-status-icon {
+            width: 16px;
+            height: 16px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23408020' d='M2 8L6 12L14 4L12 2L6 8L4 6Z'/%3E%3C/svg%3E") no-repeat center;
+            background-size: contain;
+        }
+
+        /* Responsive */
+        @media (max-width: 500px) {
+            .xp-window { width: 100%; margin: 10px; }
+            .xp-action-buttons { flex-wrap: wrap; }
+            .xp-action-btn { flex: 1; min-width: 80px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="xp-window">
+        <!-- Title Bar -->
+        <div class="xp-titlebar">
+            <div class="xp-titlebar-text">
+                <span class="xp-icon">📦</span>
+                App 安装程序
+            </div>
+            <div class="xp-buttons">
+                <div class="xp-btn">_</div>
+                <div class="xp-btn">□</div>
+                <div class="xp-btn xp-btn-close">×</div>
+            </div>
+        </div>
+
+        <!-- Menu Bar -->
+        <div class="xp-menubar">
+            <span class="xp-menu-item">文件(F)</span>
+            <span class="xp-menu-item">编辑(E)</span>
+            <span class="xp-menu-item">查看(V)</span>
+            <span class="xp-menu-item">帮助(H)</span>
+        </div>
+
+        <!-- Content -->
+        <div class="xp-content">
+            <div class="xp-groupbox">
+                <span class="xp-groupbox-title">软件信息</span>
+
+                <div class="app-info">
+                    <div class="app-icon" id="appIcon">📦</div>
+                    <div class="app-name" id="appName">app-release</div>
+                    <div class="app-version" id="appVersion">版本 1.0.0 Build 0420</div>
+                </div>
+
+                <div class="xp-prompt">
+                    <span class="xp-prompt-text">C:\></span>
+                    <span class="xp-cursor"></span>
+                </div>
+
+                <hr class="xp-divider">
+
+                <div class="file-details">
+                    <div class="file-details-row">
+                        <span class="label">文件名：</span>
+                        <span class="value" id="fileName">app-release.apk</span>
+                    </div>
+                    <div class="file-details-row">
+                        <span class="label">文件大小：</span>
+                        <span class="value" id="fileSize">8.62 MB</span>
+                    </div>
+                    <div class="file-details-row">
+                        <span class="label">版本：</span>
+                        <span class="value" id="fileVersion">1.0.0</span>
+                    </div>
+                </div>
+
+                <div class="xp-action-buttons">
+                    <a
+                        id="downloadBtn"
+                        href="./app/app-release.apk"
+                        class="xp-action-btn xp-action-btn-primary"
+                        download
+                        style="text-decoration: none; color: inherit; text-align: center; display: inline-block; line-height: 20px;"
+                    >
+                        立即下载
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="xp-statusbar">
+            <div class="xp-status-left">
+                <span class="xp-status-icon"></span>
+                <span>就绪</span>
+            </div>
+            <div>对象: 1</div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
